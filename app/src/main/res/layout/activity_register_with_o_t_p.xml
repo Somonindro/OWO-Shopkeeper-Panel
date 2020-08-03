@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".RegisterWithOTPActivity">
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="match_parent"
+        android:layout_height="230dp"
+        android:layout_margin="10dp"
+        android:padding="5dp"
+        android:src="@drawable/logo"/>
+
+    <TextView
+        android:id="@+id/txt1"
+        android:layout_marginTop="20sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/logo"
+        android:text="Dear  Shopkeeper"
+        android:textSize="20sp"
+        android:fontFamily="@font/ethnocentric"
+        android:textColor="#0026FF"
+        android:gravity="center"
+        />
+
+    <TextView
+        android:id="@+id/txt2"
+        android:layout_below="@+id/txt1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Register a new account"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:textSize="18sp"
+        android:fontFamily="@font/ethnocentric"
+        android:textColor="#0026FF"
+        />
+
+    <EditText
+        android:layout_below="@+id/txt2"
+        android:textSize="20sp"
+        android:textColorHint="#666"
+        android:id="@+id/shopkeeper_register_mobile"
+        android:padding="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:layout_marginBottom="60dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginRight="18dp"
+        android:hint="Mobile Number"
+        android:drawableLeft="@drawable/phone"
+        android:background="@drawable/edittext_design"
+        android:drawablePadding="10dp"
+        android:inputType="number"/>
+
+    <Button
+        android:textSize="20sp"
+        android:textColor="#fff"
+        android:id="@+id/send_otp_btn"
+        android:layout_alignParentBottom="true"
+        android:padding="15dp"
+        android:layout_margin="25dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/buttons_blue"
+        android:fontFamily="@font/ethnocentric"
+        android:text="Send OTP"
+        android:textAllCaps="false"
+        android:elevation="0dp" />
+
+
+</RelativeLayout>
