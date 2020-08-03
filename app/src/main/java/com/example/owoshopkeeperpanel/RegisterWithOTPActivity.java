@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -21,6 +22,7 @@ public class RegisterWithOTPActivity extends AppCompatActivity {
     private EditText regMobile;
     private Button sendOTP;
     private String mobilenumber;
+    private ProgressBar progress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +32,7 @@ public class RegisterWithOTPActivity extends AppCompatActivity {
         regMobile=(EditText)findViewById(R.id.shopkeeper_register_mobile);
         sendOTP=(Button)findViewById(R.id.send_otp_btn);
         mobilenumber=regMobile.getText().toString();
+        progress = findViewById(R.id.progress);
 
         sendOTP.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,6 +48,17 @@ public class RegisterWithOTPActivity extends AppCompatActivity {
 
                 //For checking existing user in firebase
 
+                progress.setVisibility(View.VISIBLE);
+
+                String phoneNumber = "+" + "88" + number;
+
+                Intent intent = new Intent(RegisterWithOTPActivity.this, VerifyPhoneActivity.class);
+                intent.putExtra("phonenumber", phoneNumber);
+                intent.putExtra("mobilenumber",mobilenumber);//without +88
+                progress.setVisibility(View.INVISIBLE);
+                startActivity(intent);
+
+                /*
                 final DatabaseReference RootRef;
                 RootRef = FirebaseDatabase.getInstance().getReference();
 
@@ -59,6 +73,7 @@ public class RegisterWithOTPActivity extends AppCompatActivity {
                             Intent intent = new Intent(RegisterWithOTPActivity.this, VerifyPhoneActivity.class);
                             intent.putExtra("phonenumber", phoneNumber);
                             intent.putExtra("mobilenumber",mobilenumber);//without +88
+                            progress.setVisibility(View.INVISIBLE);
                             startActivity(intent);
                         }
 
@@ -76,6 +91,8 @@ public class RegisterWithOTPActivity extends AppCompatActivity {
 
                     }
                 });
+
+                 */
             }
         });
 
