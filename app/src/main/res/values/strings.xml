@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">OWOShopkeeperPanel</string>
+
+    <string name="maps_api_key">AIzaSyBOwbWr9F55eVhebZtVMhuWHNG4a52FM84</string>
+    <string name="title_activity_location_from_map">Map</string>
 </resources>

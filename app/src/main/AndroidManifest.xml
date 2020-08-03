@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AfterRegisterActivity"></activity>
+        <activity android:name=".LocationFromMap"></activity>
+        <activity android:name=".AfterRegisterActivity" />
         <activity android:name=".TermsConditionsActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".VerifyPhoneActivity" />
