@@ -69,7 +69,7 @@ public class RegisterFrontActivity extends AppCompatActivity {
         checkBox=(CheckBox)findViewById(R.id.terms);
         loadingbar = new ProgressDialog(this);
 
-        mobilenumber=getIntent().getExtras().get("mobilenumber").toString();
+        mobilenumber = getIntent().getStringExtra("mobilenumber");
         storageProfilePictureRef = FirebaseStorage.getInstance().getReference().child("Shopkeeper");
 
         term_condition.setOnClickListener(new View.OnClickListener() {//for showing the terms and conditions
@@ -227,7 +227,37 @@ public class RegisterFrontActivity extends AppCompatActivity {
                         loadingbar.setMessage("Please wait while we are checking the credentials");
                         loadingbar.setCanceledOnTouchOutside(false);
                         loadingbar.show();
-                        uploadProfileInfo(shopkeeper_name,mobilenumber,pin,myUrl);
+
+                        final DatabaseReference RootRef;
+                        RootRef = FirebaseDatabase.getInstance().getReference();
+
+                        HashMap<String, Object> userdataMap = new HashMap<>();
+                        userdataMap.put("name", shopkeeper_name);
+                        userdataMap.put("phone", mobilenumber);
+                        userdataMap.put("pin", pin);
+                        userdataMap.put("image", myUrl);
+
+                        RootRef.child("Shopkeeper").child(mobilenumber).updateChildren(userdataMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+
+                                if (task.isSuccessful())
+                                {
+                                    Toast.makeText(getApplicationContext(), "Congratulations ! Your account created successfully", Toast.LENGTH_SHORT).show();
+                                    loadingbar.dismiss();
+                                    FirebaseAuth.getInstance().signOut();
+                                    Intent intent = new Intent(RegisterFrontActivity.this, MainActivity.class);
+                                    startActivity(intent);
+                                    finish();
+
+                                }
+                                else {
+                                    loadingbar.dismiss();
+                                    Toast.makeText(getApplicationContext(), "Network error", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+
                     }
 
                     else
@@ -242,54 +272,5 @@ public class RegisterFrontActivity extends AppCompatActivity {
         {
             Toast.makeText(this, "Please select an image", Toast.LENGTH_SHORT).show();
         }
-    }
-
-    private void uploadProfileInfo(final String shopkeeper_name, final String mobilenumber, final String pin, final String myUrl) {
-        final DatabaseReference RootRef;
-        RootRef = FirebaseDatabase.getInstance().getReference();
-
-        RootRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                if(!(dataSnapshot.child("Shopkeeper").child(mobilenumber).exists()))//For checking existing users.......
-                {
-                    HashMap<String, Object> userdataMap = new HashMap<>();
-                    userdataMap.put("name", shopkeeper_name);
-                    userdataMap.put("phone", mobilenumber);
-                    userdataMap.put("pin", pin);
-                    userdataMap.put("image", myUrl);
-
-                    RootRef.child("Shopkeeper").child(mobilenumber).updateChildren(userdataMap).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-
-                            if (task.isSuccessful()) {
-                                Toast.makeText(getApplicationContext(), "Congratulations ! Your account created successfully", Toast.LENGTH_SHORT).show();
-                                loadingbar.dismiss();
-                                FirebaseAuth.getInstance().signOut();
-                                Intent intent = new Intent(RegisterFrontActivity.this, MainActivity.class);
-                                startActivity(intent);
-                            } else {
-                                loadingbar.dismiss();
-                                Toast.makeText(getApplicationContext(), "Network error", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
-                }
-                else {
-                    loadingbar.dismiss();
-                    Toast.makeText(getApplicationContext(), "Network error", Toast.LENGTH_SHORT).show();
-
-                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                    startActivity(intent);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
     }
 }

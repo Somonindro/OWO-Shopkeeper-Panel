@@ -41,9 +41,10 @@ public class VerifyPhoneActivity extends AppCompatActivity {
         otp=(EditText)findViewById(R.id.otp);
         continueBtn=(Button)findViewById(R.id.continue_btn);
         progressBar = findViewById(R.id.progressbar);
-        mobilenumber=getIntent().getExtras().get("mobilenumber").toString();
+        mobilenumber = getIntent().getStringExtra("mobilenumber");
 
         String phonenumber = getIntent().getStringExtra("phonenumber");
+
         sendVerificationCode(phonenumber);
 
         continueBtn.setOnClickListener(new View.OnClickListener() {
@@ -75,9 +76,8 @@ public class VerifyPhoneActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-
                             Intent intent = new Intent(VerifyPhoneActivity.this, RegisterFrontActivity.class);
-                            intent.putExtra("mobilenumber",mobilenumber);
+                            intent.putExtra("mobilenumber", mobilenumber);
                             startActivity(intent);
 
                         } else {
