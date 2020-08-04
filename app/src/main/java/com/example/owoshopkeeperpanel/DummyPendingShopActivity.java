@@ -49,6 +49,10 @@ public class DummyPendingShopActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                //it will be changed later, here will be an intermediate stage for waiting approve
+                Intent intent=new Intent(DummyPendingShopActivity.this,HomeActivity.class);
+                startActivity(intent);
+
             }
         });
     }
