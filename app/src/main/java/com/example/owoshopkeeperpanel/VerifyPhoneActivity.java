@@ -26,7 +26,7 @@ public class VerifyPhoneActivity extends AppCompatActivity {
 
     private EditText otp;
     private Button continueBtn;
-    private String mobilenumber;
+    private String mobilenumber, name;
     private String verificationId;
     private FirebaseAuth mAuth;
     private ProgressBar progressBar;
@@ -41,9 +41,10 @@ public class VerifyPhoneActivity extends AppCompatActivity {
         otp=(EditText)findViewById(R.id.otp);
         continueBtn=(Button)findViewById(R.id.continue_btn);
         progressBar = findViewById(R.id.progressbar);
-        mobilenumber = getIntent().getStringExtra("mobilenumber");
 
+        mobilenumber = getIntent().getStringExtra("mobilenumber");
         String phonenumber = getIntent().getStringExtra("phonenumber");
+        name = getIntent().getStringExtra("name");
 
         sendVerificationCode(phonenumber);
 
@@ -78,6 +79,7 @@ public class VerifyPhoneActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             Intent intent = new Intent(VerifyPhoneActivity.this, RegisterFrontActivity.class);
                             intent.putExtra("mobilenumber", mobilenumber);
+                            intent.putExtra("name", name);
                             startActivity(intent);
 
                         } else {

@@ -19,17 +19,19 @@ import android.widget.Toast;
 
 import com.example.owoshopkeeperpanel.Model.User_shopkeeper;
 import com.example.owoshopkeeperpanel.Prevalent.Prevalent;
+import com.example.owoshopkeeperpanel.hashing.hashing_algo;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+
+import java.security.NoSuchAlgorithmException;
 
 import io.paperdb.Paper;
 
 public class MainActivity extends AppCompatActivity {
-
-    //this is our login activity
 
     private Button loginButton;
     private EditText mobile, pin;
@@ -92,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void LoginUser() {
+
         String Phone = mobile.getText().toString();
         String Pin = pin.getText().toString();
 
@@ -111,59 +114,63 @@ public class MainActivity extends AppCompatActivity {
             loadingbar.setCanceledOnTouchOutside(false);
             loadingbar.show();
 
+            try {
+                Pin = hashing_algo.toHexString(hashing_algo.getSHA(Pin));
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            }
+
             AllowAccessToAccount(Phone, Pin);
         }
     }
 
     private void AllowAccessToAccount(final String phone, final String pin) {
+
         final DatabaseReference RootRef;
         RootRef = FirebaseDatabase.getInstance().getReference();
 
-        RootRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        Query query = RootRef.child("Shopkeeper").orderByKey().equalTo(phone);
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                if(dataSnapshot.child("Shopkeeper").child(phone).exists())
+                if(snapshot.exists())
                 {
-                    User_shopkeeper users = dataSnapshot.child("Shopkeeper").child(phone).getValue(User_shopkeeper.class);
+                    User_shopkeeper users = snapshot.child(phone).getValue(User_shopkeeper.class);
 
-                    if(users.getPhone().equals(phone))
+                    if(users.getPin().equals(pin))
                     {
-                        if(users.getPin().equals(pin))
+
+                        if(rememberMe.isChecked())//Writing user data on android storage
                         {
-
-                            if(rememberMe.isChecked())//Writing user data on android storage
-                            {
-                                Paper.book().write(Prevalent.UserPhoneKey, phone);
-                                Paper.book().write(Prevalent.UserPinKey, pin);
-                            }
-
-                            Toast.makeText(getApplicationContext(), "Log in successful", Toast.LENGTH_SHORT).show();
-
-                            Intent intent = new Intent(getApplicationContext(), AfterRegisterActivity.class);
-                            Prevalent.currentOnlineUser = users;
-                            startActivity(intent);
+                            Paper.book().write(Prevalent.UserPhoneKey, phone);
+                            Paper.book().write(Prevalent.UserPinKey, pin);
                         }
 
-                        else
-                        {
-                            Toast.makeText(MainActivity.this, "Please enter correct pin", Toast.LENGTH_SHORT).show();
-                            loadingbar.dismiss();
-                        }
+                        Toast.makeText(getApplicationContext(), "Log in successful", Toast.LENGTH_SHORT).show();
+
+                        Intent intent = new Intent(getApplicationContext(), AfterRegisterActivity.class);
+                        Prevalent.currentOnlineUser = users;
+                        startActivity(intent);
+                    }
+
+                    else
+                    {
+                        Toast.makeText(MainActivity.this, "Please enter correct pin", Toast.LENGTH_SHORT).show();
+                        loadingbar.dismiss();
                     }
                 }
 
-                else
-                {
-                    Toast.makeText(getApplicationContext(), "Account with this phone number do not exists", Toast.LENGTH_SHORT).show();
+                else {
+                    Toast.makeText(MainActivity.this, "No such account", Toast.LENGTH_SHORT).show();
                     loadingbar.dismiss();
                 }
-
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(MainActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

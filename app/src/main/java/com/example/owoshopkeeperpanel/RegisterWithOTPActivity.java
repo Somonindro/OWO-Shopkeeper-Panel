@@ -3,9 +3,11 @@ package com.example.owoshopkeeperpanel;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -20,24 +22,33 @@ import com.google.firebase.database.ValueEventListener;
 
 public class RegisterWithOTPActivity extends AppCompatActivity {
 
-    private EditText regMobile;
+    private EditText merchant_name, regMobile;
     private Button sendOTP;
-    private ProgressBar progress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_with_o_t_p);
 
+
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+
         regMobile = (EditText)findViewById(R.id.shopkeeper_register_mobile);
+        merchant_name = findViewById(R.id.new_shopkeeper_name);
         sendOTP = (Button)findViewById(R.id.send_otp_btn);
-        progress = findViewById(R.id.progress);
+
+
+        final ProgressDialog progressDialog = new ProgressDialog(RegisterWithOTPActivity.this);
+        progressDialog.setMessage("Please wait while we are checking your credentials");
+        progressDialog.setCanceledOnTouchOutside(false);
+
 
         sendOTP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(RegisterWithOTPActivity.this, "Wait for the verification code...", Toast.LENGTH_SHORT).show();
-                final String number = regMobile.getText().toString().trim();
+
+                final String number = regMobile.getText().toString();
 
                 if (number.isEmpty() || number.length() < 11) {
                     regMobile.setError("Please enter a valid number");
@@ -45,17 +56,46 @@ public class RegisterWithOTPActivity extends AppCompatActivity {
                     return;
                 }
 
-                //For checking existing user in firebase
+                else if(merchant_name.getText().toString().isEmpty())
+                {
+                    merchant_name.setError("Name can not be empty");
+                    merchant_name.requestFocus();
+                    return;
+                }
 
-                progress.setVisibility(View.VISIBLE);
+                DatabaseReference shopkeeperRef = FirebaseDatabase.getInstance().getReference();
+                final Query query = shopkeeperRef.child("Shopkeeper").orderByKey().equalTo(number);
+                final String name  = merchant_name.getText().toString();
 
-                String phoneNumber = "+" + "88" + number;
+                progressDialog.show();
 
-                Intent intent = new Intent(RegisterWithOTPActivity.this, VerifyPhoneActivity.class);
-                intent.putExtra("phonenumber", phoneNumber);
-                intent.putExtra("mobilenumber", number);//without +88
-                progress.setVisibility(View.INVISIBLE);
-                startActivity(intent);
+                query.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if(snapshot.exists())
+                        {
+                            Toast.makeText(RegisterWithOTPActivity.this, "This number is already registered, please log in", Toast.LENGTH_SHORT).show();
+                            progressDialog.dismiss();
+                        }
+                        else
+                        {
+
+                            String phoneNumber = "+" + "88" + number;
+                            Intent intent = new Intent(RegisterWithOTPActivity.this, VerifyPhoneActivity.class);
+                            intent.putExtra("phonenumber", phoneNumber);
+                            intent.putExtra("mobilenumber", number);
+                            intent.putExtra("name", name);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Toast.makeText(RegisterWithOTPActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+                        progressDialog.dismiss();
+                    }
+                });
 
             }
         });

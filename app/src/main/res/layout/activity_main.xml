@@ -44,6 +44,7 @@
             android:textColorHint="#666"
             android:id="@+id/shopkeeper_mobile"
             android:padding="10dp"
+            android:maxLength="11"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Mobile Number"

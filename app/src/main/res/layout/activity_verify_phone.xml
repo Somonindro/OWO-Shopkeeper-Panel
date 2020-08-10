@@ -5,18 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layout_margin="10dp"
+    android:background="@color/white"
     android:gravity="center"
     tools:context=".VerifyPhoneActivity">
 
     <ImageView
         android:id="@+id/logo"
         android:layout_width="match_parent"
-        android:layout_height="230dp"
-        android:layout_margin="10dp"
+        android:layout_height="200dp"
         android:padding="5dp"
         android:src="@drawable/logo"/>
-
 
     <TextView
         android:id="@+id/txt"
