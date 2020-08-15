@@ -16,7 +16,7 @@ public class AfterRegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_after_register);
 
-        button=(Button)findViewById(R.id.btn);
+        button=(Button)findViewById(R.id.create_btn);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

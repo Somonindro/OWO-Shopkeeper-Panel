@@ -60,6 +60,14 @@ public class MainActivity extends AppCompatActivity {
         signUp=(TextView)findViewById(R.id.sign_up);
         loadingbar = new ProgressDialog(this);
 
+        forgetPin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(MainActivity.this,RegisterWithOTPActivity.class);
+                startActivity(intent);
+            }
+        });
+
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -7,45 +7,21 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/app_bar_home">
 
-    <ScrollView
+    <ViewFlipper
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:id="@+id/view_flipper_offer"
+        android:layout_centerHorizontal="true"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_for_products"
+        android:layout_below="@+id/view_flipper_offer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        >
+        android:scrollbars="vertical">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/card_for_offers"
-                android:layout_width="match_parent"
-                android:layout_height="140dp"
-                android:padding="10dp"
-                >
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/card_for_products"
-                android:layout_below="@+id/card_for_offers"
-                >
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recycler_view_for_products"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scrollbars="vertical">
-
-                </androidx.recyclerview.widget.RecyclerView>
-
-            </androidx.cardview.widget.CardView>
-
-        </RelativeLayout>
-
-    </ScrollView>
+    </androidx.recyclerview.widget.RecyclerView>
 
 
 

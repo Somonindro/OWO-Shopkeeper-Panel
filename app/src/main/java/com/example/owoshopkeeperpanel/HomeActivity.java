@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ViewFlipper;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -24,14 +25,19 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.owoshopkeeperpanel.Model.Offers;
 import com.example.owoshopkeeperpanel.Model.Products;
 import com.example.owoshopkeeperpanel.Prevalent.Prevalent;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -42,6 +48,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     //private AppBarConfiguration mAppBarConfiguration;
     private DatabaseReference ProductsRef;
     private RecyclerView recyclerView;
+    private ViewFlipper viewFlipper;
+    private DatabaseReference OffersRef;
     RecyclerView.LayoutManager layoutManager;
 
     @Override
@@ -82,16 +90,42 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         userNameTextView.setText(Prevalent.currentOnlineUser.getName());
         Picasso.get().load(Prevalent.currentOnlineUser.getImage()).placeholder(R.drawable.profile).into(profileImageView);
 
+        OffersRef = FirebaseDatabase.getInstance().getReference().child("Offers");
+        //String images[] ;
+        //here i couldn't fetch image from firebase
+
+        viewFlipper=findViewById(R.id.view_flipper_offer);
+
+        /*for (String image:images)
+        {
+            flipperImage(image);
+        }*/
+
         recyclerView=findViewById(R.id.recycler_view_for_products);
         recyclerView.setHasFixedSize(true);
         layoutManager=new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
     }
 
+    public void flipperImage(String image)
+    {
+        ImageView imageView=new ImageView(this);
+        //imageView.setBackgroundResource(image);
+        Picasso.get().load(image).into(imageView);
+        viewFlipper.addView(imageView);
+        viewFlipper.setFlipInterval(2000);
+        viewFlipper.setAutoStart(true);
+
+        //animation
+        viewFlipper.setInAnimation(this,android.R.anim.slide_in_left);
+        viewFlipper.setOutAnimation(this,android.R.anim.slide_out_right);
+    }
+
     @Override
     protected void onStart() {
         super.onStart();
 
+        //this part was for products
         FirebaseRecyclerOptions<Products> options = new FirebaseRecyclerOptions.Builder<Products>()
                 .setQuery(ProductsRef, Products.class)
                 .build();
@@ -108,7 +142,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                         holder.itemView.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-
+                                //it will go to product details activity
                             }
                         });
                     }
