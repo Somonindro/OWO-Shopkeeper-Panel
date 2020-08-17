@@ -2,6 +2,7 @@ package com.example.owoshopkeeperpanel;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -25,6 +26,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.owoshopkeeperpanel.Model.Offers;
 import com.example.owoshopkeeperpanel.Model.Products;
 import com.example.owoshopkeeperpanel.Prevalent.Prevalent;
@@ -40,17 +42,20 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 import io.paperdb.Paper;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    //private AppBarConfiguration mAppBarConfiguration;
     private DatabaseReference ProductsRef;
     private RecyclerView recyclerView;
     private ViewFlipper viewFlipper;
     private DatabaseReference OffersRef;
-    RecyclerView.LayoutManager layoutManager;
+    private RecyclerView.LayoutManager layoutManager;
+    private List<String> images = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,15 +96,35 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         Picasso.get().load(Prevalent.currentOnlineUser.getImage()).placeholder(R.drawable.profile).into(profileImageView);
 
         OffersRef = FirebaseDatabase.getInstance().getReference().child("Offers");
-        //String images[] ;
-        //here i couldn't fetch image from firebase
+
+        //Getting offers class from firebase
+        OffersRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                if(snapshot.exists())
+                {
+                    for(DataSnapshot dataSnapshot1 : snapshot.getChildren())
+                    {
+                        Offers offers = dataSnapshot1.getValue(Offers.class);
+                        images.add(offers.getImage());
+                    }
+                    fliptheView();
+                }
+                else
+                {
+                    Toast.makeText(HomeActivity.this, "No offer currently available", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(HomeActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
 
         viewFlipper=findViewById(R.id.view_flipper_offer);
-
-        /*for (String image:images)
-        {
-            flipperImage(image);
-        }*/
 
         recyclerView=findViewById(R.id.recycler_view_for_products);
         recyclerView.setHasFixedSize(true);
@@ -107,25 +132,36 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         recyclerView.setLayoutManager(layoutManager);
     }
 
+    private void fliptheView() {
+        int size = images.size();
+
+        Toast.makeText(this, String.valueOf(size), Toast.LENGTH_SHORT).show();
+
+        for(int i=0; i<size; i++)
+        {
+            flipperImage(images.get(i));
+        }
+
+    }
+
     public void flipperImage(String image)
     {
         ImageView imageView=new ImageView(this);
-        //imageView.setBackgroundResource(image);
-        Picasso.get().load(image).into(imageView);
+        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+        Glide.with(HomeActivity.this).load(image).into(imageView);
         viewFlipper.addView(imageView);
         viewFlipper.setFlipInterval(2000);
         viewFlipper.setAutoStart(true);
+        viewFlipper.startFlipping();
 
-        //animation
         viewFlipper.setInAnimation(this,android.R.anim.slide_in_left);
         viewFlipper.setOutAnimation(this,android.R.anim.slide_out_right);
     }
-
+/*
     @Override
     protected void onStart() {
         super.onStart();
 
-        //this part was for products
         FirebaseRecyclerOptions<Products> options = new FirebaseRecyclerOptions.Builder<Products>()
                 .setQuery(ProductsRef, Products.class)
                 .build();
@@ -137,14 +173,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                         holder.txtProductName.setText(model.getPname());
                         holder.txtProductDescription.setText(model.getDescription());
                         holder.txtProductPrice.setText("Price = "+ model.getPrice()+"Tk."+"(Discount "+model.getDiscount()+"Tk.)");
-                        Picasso.get().load(model.getImage()).into(holder.imageView);
-
-                        holder.itemView.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                //it will go to product details activity
-                            }
-                        });
+                        Glide.with(HomeActivity.this).load(model.getImage()).into(holder.imageView);
                     }
 
                     @NonNull
@@ -169,9 +198,17 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             txtProductName=(TextView)itemView.findViewById(R.id.product_name);
             txtProductDescription=(TextView)itemView.findViewById(R.id.product_description);
             txtProductPrice=(TextView)itemView.findViewById(R.id.product_price);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
         }
     }
 
+ */
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
