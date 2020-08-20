@@ -21,8 +21,10 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.paging.PagedList;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.bumptech.glide.Glide;
 import com.example.owoshopkeeperpanel.Model.Offers;
@@ -53,16 +55,21 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     private RecyclerView.LayoutManager layoutManager;
     private List<String> images = new ArrayList<String>();
     private ItemAdapter adapter;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        recyclerView = findViewById(R.id.recycler_view_for_products);
+
+        getProducts();
+
         Paper.init(this);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle("Home");
+        toolbar.setTitle("OwoDokan");
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -119,12 +126,17 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
+        swipeRefreshLayout = findViewById(R.id.swipe_refresh);
+        swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getProducts();
+            }
+        });
+
         viewFlipper=findViewById(R.id.view_flipper_offer);
 
-
-        recyclerView=findViewById(R.id.recycler_view_for_products);
-
-        getProducts();
     }
 
     private void fliptheView() {
@@ -143,7 +155,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         imageView.setScaleType(ImageView.ScaleType.FIT_XY);
         Glide.with(HomeActivity.this).load(image).into(imageView);
         viewFlipper.addView(imageView);
-        viewFlipper.setFlipInterval(2000);
+        viewFlipper.setFlipInterval(4000);
         viewFlipper.setAutoStart(true);
         viewFlipper.startFlipping();
 
@@ -168,10 +180,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     private void showOnRecyclerView() {
         recyclerView.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(this);
+        layoutManager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+        swipeRefreshLayout.setRefreshing(false);
     }
 
 
