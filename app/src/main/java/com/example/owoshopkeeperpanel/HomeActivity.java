@@ -1,21 +1,16 @@
 package com.example.owoshopkeeperpanel;
 
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,6 +18,9 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.paging.PagedList;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -30,15 +28,14 @@ import com.bumptech.glide.Glide;
 import com.example.owoshopkeeperpanel.Model.Offers;
 import com.example.owoshopkeeperpanel.Model.Products;
 import com.example.owoshopkeeperpanel.Prevalent.Prevalent;
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.example.owoshopkeeperpanel.pagination.ItemAdapter;
+import com.example.owoshopkeeperpanel.pagination.ItemViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
@@ -50,19 +47,17 @@ import io.paperdb.Paper;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    private DatabaseReference ProductsRef;
     private RecyclerView recyclerView;
     private ViewFlipper viewFlipper;
     private DatabaseReference OffersRef;
     private RecyclerView.LayoutManager layoutManager;
     private List<String> images = new ArrayList<String>();
+    private ItemAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
-        ProductsRef = FirebaseDatabase.getInstance().getReference().child("Products");
 
         Paper.init(this);
 
@@ -126,16 +121,14 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         viewFlipper=findViewById(R.id.view_flipper_offer);
 
+
         recyclerView=findViewById(R.id.recycler_view_for_products);
-        recyclerView.setHasFixedSize(true);
-        layoutManager=new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
+
+        getProducts();
     }
 
     private void fliptheView() {
         int size = images.size();
-
-        Toast.makeText(this, String.valueOf(size), Toast.LENGTH_SHORT).show();
 
         for(int i=0; i<size; i++)
         {
@@ -157,58 +150,31 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         viewFlipper.setInAnimation(this,android.R.anim.slide_in_left);
         viewFlipper.setOutAnimation(this,android.R.anim.slide_out_right);
     }
-/*
-    @Override
-    protected void onStart() {
-        super.onStart();
 
-        FirebaseRecyclerOptions<Products> options = new FirebaseRecyclerOptions.Builder<Products>()
-                .setQuery(ProductsRef, Products.class)
-                .build();
 
-        FirebaseRecyclerAdapter<Products,ProductViewHolder> adapter=
-                new FirebaseRecyclerAdapter<Products, ProductViewHolder>(options) {
-                    @Override
-                    protected void onBindViewHolder(@NonNull final ProductViewHolder holder, int position, @NonNull final Products model) {
-                        holder.txtProductName.setText(model.getPname());
-                        holder.txtProductDescription.setText(model.getDescription());
-                        holder.txtProductPrice.setText("Price = "+ model.getPrice()+"Tk."+"(Discount "+model.getDiscount()+"Tk.)");
-                        Glide.with(HomeActivity.this).load(model.getImage()).into(holder.imageView);
-                    }
+    public void getProducts() {
+        adapter = new ItemAdapter(this);
+        ItemViewModel itemViewModel = ViewModelProviders.of(this).get(ItemViewModel.class);
 
-                    @NonNull
-                    @Override
-                    public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.product_sample,parent,false);
-                        return new ProductViewHolder(view);
-                    }
-                };
+        itemViewModel.itemPagedList.observe(this, new Observer<PagedList<Products>>() {
+            @Override
+            public void onChanged(@Nullable PagedList<Products> items) {
+                adapter.submitList(items);
+                showOnRecyclerView();
+            }
+        });
+
+    }
+
+    private void showOnRecyclerView() {
+        recyclerView.setHasFixedSize(true);
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
-        adapter.startListening();
+        adapter.notifyDataSetChanged();
     }
 
-    public static class ProductViewHolder extends RecyclerView.ViewHolder{
 
-        public TextView txtProductName,txtProductDescription,txtProductPrice;
-        public ImageView imageView;
-
-        public ProductViewHolder(@NonNull View itemView) {
-            super(itemView);
-            imageView=(ImageView)itemView.findViewById(R.id.product_image);
-            txtProductName=(TextView)itemView.findViewById(R.id.product_name);
-            txtProductDescription=(TextView)itemView.findViewById(R.id.product_description);
-            txtProductPrice=(TextView)itemView.findViewById(R.id.product_price);
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                }
-            });
-        }
-    }
-
- */
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
