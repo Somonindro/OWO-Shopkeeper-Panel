@@ -1,4 +1,4 @@
-package com.example.owoshopkeeperpanel.hashing;
+package com.owoshopkeeperpanel.hashing;
 
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;

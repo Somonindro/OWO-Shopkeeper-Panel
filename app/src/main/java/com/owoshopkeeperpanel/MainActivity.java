@@ -1,4 +1,4 @@
-package com.example.owoshopkeeperpanel;
+package com.owoshopkeeperpanel;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,9 +17,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.owoshopkeeperpanel.Model.User_shopkeeper;
-import com.example.owoshopkeeperpanel.Prevalent.Prevalent;
-import com.example.owoshopkeeperpanel.hashing.hashing_algo;
+import com.owoshopkeeperpanel.R;
+import com.owoshopkeeperpanel.Model.User_shopkeeper;
+import com.owoshopkeeperpanel.Prevalent.Prevalent;
+import com.owoshopkeeperpanel.hashing.hashing_algo;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -63,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         forgetPin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(MainActivity.this,RegisterWithOTPActivity.class);
+                Intent intent=new Intent(MainActivity.this, RegisterWithOTPActivity.class);
                 startActivity(intent);
             }
         });

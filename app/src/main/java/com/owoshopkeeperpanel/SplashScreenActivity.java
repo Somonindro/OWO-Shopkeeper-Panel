@@ -1,4 +1,4 @@
-package com.example.owoshopkeeperpanel;
+package com.owoshopkeeperpanel;
 
 import androidx.appcompat.app.AppCompatActivity;
 

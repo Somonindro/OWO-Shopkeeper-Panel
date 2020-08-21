@@ -1,4 +1,4 @@
-package com.example.owoshopkeeperpanel;
+package com.owoshopkeeperpanel;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -17,8 +17,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.owoshopkeeperpanel.Model.User_shopkeeper;
-import com.example.owoshopkeeperpanel.hashing.hashing_algo;
+import com.owoshopkeeperpanel.R;
+import com.owoshopkeeperpanel.Model.User_shopkeeper;
+import com.owoshopkeeperpanel.hashing.hashing_algo;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -81,7 +82,7 @@ public class RegisterFrontActivity extends AppCompatActivity {
         term_condition.setOnClickListener(new View.OnClickListener() {//for showing the terms and conditions
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(RegisterFrontActivity.this,TermsConditionsActivity.class);
+                Intent intent=new Intent(RegisterFrontActivity.this, TermsConditionsActivity.class);
                 startActivity(intent);
             }
         });

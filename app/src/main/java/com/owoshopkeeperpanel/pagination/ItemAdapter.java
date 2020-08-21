@@ -1,8 +1,7 @@
-package com.example.owoshopkeeperpanel.pagination;
+package com.owoshopkeeperpanel.pagination;
 
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +15,8 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.owoshopkeeperpanel.Model.Products;
-import com.example.owoshopkeeperpanel.R;
+import com.owoshopkeeperpanel.R;
+import com.owoshopkeeperpanel.Model.Products;
 
 public class ItemAdapter extends PagedListAdapter<Products, ItemAdapter.ItemViewHolder>{
 
@@ -69,7 +68,7 @@ public class ItemAdapter extends PagedListAdapter<Products, ItemAdapter.ItemView
 
     public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        public TextView txtProductName, txtProductPrice;
+        public TextView txtProductName, txtProductPrice, txtProduct_discounted_price;
         public ImageView imageView;
 
         public ItemViewHolder(View itemView) {
@@ -77,6 +76,8 @@ public class ItemAdapter extends PagedListAdapter<Products, ItemAdapter.ItemView
             imageView=(ImageView)itemView.findViewById(R.id.product_image);
             txtProductName=(TextView)itemView.findViewById(R.id.product_name);
             txtProductPrice=(TextView)itemView.findViewById(R.id.product_price);
+
+            txtProduct_discounted_price = itemView.findViewById(R.id.product_discounted_price);
 
             itemView.setOnClickListener(this);
         }

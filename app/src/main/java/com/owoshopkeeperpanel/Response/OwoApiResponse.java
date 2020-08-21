@@ -1,7 +1,7 @@
-package com.example.owoshopkeeperpanel.Response;
+package com.owoshopkeeperpanel.Response;
 
 
-import com.example.owoshopkeeperpanel.Model.Products;
+import com.owoshopkeeperpanel.Model.Products;
 
 import java.util.List;
 

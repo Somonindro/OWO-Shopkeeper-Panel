@@ -1,4 +1,4 @@
-package com.example.owoshopkeeperpanel;
+package com.owoshopkeeperpanel;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,9 +13,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.owoshopkeeperpanel.Model.User_shopkeeper;
-import com.example.owoshopkeeperpanel.Prevalent.Prevalent;
-import com.example.owoshopkeeperpanel.hashing.hashing_algo;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
@@ -24,6 +21,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.owoshopkeeperpanel.Model.User_shopkeeper;
+import com.owoshopkeeperpanel.hashing.hashing_algo;
 
 import java.security.NoSuchAlgorithmException;
 

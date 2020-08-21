@@ -1,4 +1,4 @@
-package com.example.owoshopkeeperpanel.Network;
+package com.owoshopkeeperpanel.Network;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

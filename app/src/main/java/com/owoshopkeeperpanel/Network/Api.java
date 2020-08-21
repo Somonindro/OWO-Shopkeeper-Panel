@@ -1,7 +1,7 @@
-package com.example.owoshopkeeperpanel.Network;
+package com.owoshopkeeperpanel.Network;
 
 
-import com.example.owoshopkeeperpanel.Response.OwoApiResponse;
+import com.owoshopkeeperpanel.Response.OwoApiResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

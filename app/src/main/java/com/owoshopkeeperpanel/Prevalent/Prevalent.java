@@ -1,6 +1,7 @@
-package com.example.owoshopkeeperpanel.Prevalent;
+package com.owoshopkeeperpanel.Prevalent;
 
-import com.example.owoshopkeeperpanel.Model.User_shopkeeper;
+
+import com.owoshopkeeperpanel.Model.User_shopkeeper;
 
 public class Prevalent {
 

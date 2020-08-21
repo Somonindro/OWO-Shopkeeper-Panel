@@ -1,4 +1,4 @@
-package com.example.owoshopkeeperpanel.Model;
+package com.owoshopkeeperpanel.Model;
 
 public class PendingShops {
 

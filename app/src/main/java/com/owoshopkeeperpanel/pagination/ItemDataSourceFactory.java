@@ -1,10 +1,10 @@
-package com.example.owoshopkeeperpanel.pagination;
+package com.owoshopkeeperpanel.pagination;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.paging.DataSource;
 import androidx.paging.PageKeyedDataSource;
 
-import com.example.owoshopkeeperpanel.Model.Products;
+import com.owoshopkeeperpanel.Model.Products;
 
 
 public class ItemDataSourceFactory extends DataSource.Factory {
