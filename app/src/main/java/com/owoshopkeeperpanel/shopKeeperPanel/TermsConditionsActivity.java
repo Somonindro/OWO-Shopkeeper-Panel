@@ -1,8 +1,10 @@
-package com.owoshopkeeperpanel;
+package com.owoshopkeeperpanel.shopKeeperPanel;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.owoshopkeeperpanel.R;
 
 public class TermsConditionsActivity extends AppCompatActivity {
 

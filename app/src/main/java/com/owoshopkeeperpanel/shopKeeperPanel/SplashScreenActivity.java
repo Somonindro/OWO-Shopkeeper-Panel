@@ -1,4 +1,4 @@
-package com.owoshopkeeperpanel;
+package com.owoshopkeeperpanel.shopKeeperPanel;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.WindowManager;
 import android.widget.ImageView;
+
+import com.owoshopkeeperpanel.R;
 
 public class SplashScreenActivity extends AppCompatActivity {
 

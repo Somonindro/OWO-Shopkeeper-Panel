@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:background="@color/white"
     android:gravity="center"
-    tools:context=".VerifyPhoneActivity">
+    tools:context=".shopKeeperPanel.VerifyPhoneActivity">
 
     <ImageView
         android:id="@+id/logo"

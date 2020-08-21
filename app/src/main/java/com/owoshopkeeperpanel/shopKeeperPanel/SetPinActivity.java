@@ -1,4 +1,4 @@
-package com.owoshopkeeperpanel;
+package com.owoshopkeeperpanel.shopKeeperPanel;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,6 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.owoshopkeeperpanel.Model.User_shopkeeper;
+import com.owoshopkeeperpanel.R;
 import com.owoshopkeeperpanel.hashing.hashing_algo;
 
 import java.security.NoSuchAlgorithmException;

@@ -15,21 +15,21 @@
         android:supportsRtl="true"
         android:usesCleartextTraffic="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SetPinActivity"></activity>
-        <activity android:name=".ForgetVerifyPhoneActivity" />
-        <activity android:name=".ForgetPinOtpActivity" />
-        <activity android:name=".SettingsActivity" />
-        <activity android:name=".LocationFromMap" />
-        <activity android:name=".AfterRegisterActivity" />
-        <activity android:name=".TermsConditionsActivity" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".VerifyPhoneActivity" />
-        <activity android:name=".RegisterWithOTPActivity" />
-        <activity android:name=".RegisterFrontActivity" />
-        <activity android:name=".HomeActivity" />
-        <activity android:name=".DummyPendingShopActivity" />
+        <activity android:name=".shopKeeperPanel.SetPinActivity"></activity>
+        <activity android:name=".shopKeeperPanel.ForgetVerifyPhoneActivity" />
+        <activity android:name=".shopKeeperPanel.ForgetPinOtpActivity" />
+        <activity android:name=".shopKeeperPanel.SettingsActivity" />
+        <activity android:name=".shopKeeperPanel.LocationFromMap" />
+        <activity android:name=".shopKeeperPanel.AfterRegisterActivity" />
+        <activity android:name=".shopKeeperPanel.TermsConditionsActivity" />
+        <activity android:name=".shopKeeperPanel.MainActivity" />
+        <activity android:name=".shopKeeperPanel.VerifyPhoneActivity" />
+        <activity android:name=".shopKeeperPanel.RegisterWithOTPActivity" />
+        <activity android:name=".shopKeeperPanel.RegisterFrontActivity" />
+        <activity android:name=".shopKeeperPanel.HomeActivity" />
+        <activity android:name=".shopKeeperPanel.DummyPendingShopActivity" />
 
-        <activity android:name=".SplashScreenActivity">
+        <activity android:name=".shopKeeperPanel.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

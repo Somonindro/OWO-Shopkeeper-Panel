@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:background="@color/white"
-    tools:context=".RegisterFrontActivity">
+    tools:context=".shopKeeperPanel.RegisterFrontActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -73,7 +73,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".RegisterFrontActivity">
+            tools:context=".shopKeeperPanel.RegisterFrontActivity">
 
             <RelativeLayout
                 android:id="@+id/relative1"

@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:background="@color/white"
     android:gravity="center"
-    tools:context=".SetPinActivity">
+    tools:context=".shopKeeperPanel.SetPinActivity">
 
     <ImageView
         android:id="@+id/logo"

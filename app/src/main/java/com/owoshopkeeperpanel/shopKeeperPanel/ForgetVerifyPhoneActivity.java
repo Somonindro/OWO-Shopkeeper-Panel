@@ -1,4 +1,4 @@
-package com.owoshopkeeperpanel;
+package com.owoshopkeeperpanel.shopKeeperPanel;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;

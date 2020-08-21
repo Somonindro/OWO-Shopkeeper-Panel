@@ -2,6 +2,7 @@ package com.owoshopkeeperpanel.pagination;
 
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,7 +46,14 @@ public class ItemAdapter extends PagedListAdapter<Products, ItemAdapter.ItemView
             Glide.with(mCtx).load(item.getProduct_image()).into(holder.imageView);
 
             holder.txtProductName.setText(item.getProduct_name());
-            holder.txtProductPrice.setText(item.getProduct_price());
+
+            holder.txtProductPrice.setText("৳ "+item.getProduct_price());
+            holder.txtProductPrice.setPaintFlags(holder.txtProductPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            holder.txtProductPrice.setVisibility(View.VISIBLE);
+
+            double discounted_price = Double.parseDouble(item.getProduct_price()) - Double.parseDouble(item.getProduct_discount());
+
+            holder.txtProduct_discounted_price.setText("৳ "+ String.valueOf(discounted_price));
 
         } else {
             Toast.makeText(mCtx, "Item is null", Toast.LENGTH_LONG).show();
