@@ -1,6 +1,7 @@
 package com.owoshopkeeperpanel.shopKeeperPanel;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,7 +30,7 @@ import com.owoshopkeeperpanel.R;
 import com.owoshopkeeperpanel.Model.Offers;
 import com.owoshopkeeperpanel.Model.Products;
 import com.owoshopkeeperpanel.Prevalent.Prevalent;
-import com.owoshopkeeperpanel.pagination.ItemAdapter;
+import com.owoshopkeeperpanel.adapters.ItemAdapter;
 import com.owoshopkeeperpanel.pagination.ItemViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
@@ -68,8 +69,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         Paper.init(this);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle("OwoDokan");
-        setSupportActionBar(toolbar);
 
         FloatingActionButton fab = findViewById(R.id.fab);
 
@@ -85,6 +84,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+
+        toggle.getDrawerArrowDrawable().setColor(Color.BLACK);//Changing navigation drawer color
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);

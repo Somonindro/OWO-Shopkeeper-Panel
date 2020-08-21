@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/swipe_refresh"
+    android:background="@color/white"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/app_bar_home">
 
@@ -19,17 +20,26 @@
             android:layout_height="match_parent"
             >
 
-            <ViewFlipper
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:id="@+id/view_flipper_offer"
-                android:layout_centerHorizontal="true"
-                android:layout_alignParentTop="true"
-                />
+                app:cardCornerRadius="8dp"
+                android:layout_margin="10dp"
+                android:id="@+id/card">
+
+                <ViewFlipper
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/view_flipper_offer"
+                    android:layout_centerHorizontal="true"
+                    android:layout_alignParentTop="true"
+                    />
+
+            </androidx.cardview.widget.CardView>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view_for_products"
-                android:layout_below="@+id/view_flipper_offer"
+                android:layout_below="@+id/card"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:nestedScrollingEnabled="false"

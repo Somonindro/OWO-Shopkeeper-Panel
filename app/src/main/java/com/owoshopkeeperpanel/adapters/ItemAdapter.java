@@ -1,4 +1,4 @@
-package com.owoshopkeeperpanel.pagination;
+package com.owoshopkeeperpanel.adapters;
 
 
 import android.content.Context;
