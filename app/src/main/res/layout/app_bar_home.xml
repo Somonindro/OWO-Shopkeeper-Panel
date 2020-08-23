@@ -12,39 +12,29 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        app:elevation="0dp"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        app:elevation="0dp">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/white"
-            app:layout_scrollFlags="scroll|enterAlways"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
+            app:layout_scrollFlags="enterAlways|scroll"
+            android:background="@color/white">
+            
+            <ImageView
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginTop="5dp">
+                android:layout_gravity="center"
+                android:src="@drawable/backgroundless"/>
 
-                <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="?attr/actionBarSize"
-                    android:scaleType="fitXY"
-                    android:layout_centerHorizontal="true"
-                    android:src="@drawable/logo1"/>
+            <ImageView
+                android:id="@+id/contact_us"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/care"
+                android:layout_marginEnd="15dp"
+                android:layout_gravity="end"/>
 
-                <ImageView
-                    android:id="@+id/customer_care"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerInParent="true"
-                    android:layout_marginEnd="20dp"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/care" />
-            </RelativeLayout>
 
         </androidx.appcompat.widget.Toolbar>
 
