@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    android:padding="5dp"
-    tools:context=".shopKeeperPanel.HomeActivity">
+    android:paddingStart="5dp"
+    android:paddingEnd="5dp"
+    android:paddingBottom="5dp"
+    tools:context=".homeComponents.HomeActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -20,48 +21,57 @@
             android:layout_height="?attr/actionBarSize"
             app:layout_scrollFlags="enterAlways|scroll"
             android:background="@color/white">
-            
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:src="@drawable/backgroundless"/>
+                android:layout_marginEnd="50dp"
+                android:src="@drawable/logo_final_transparent"
+                android:contentDescription="@string/logo" />
 
             <ImageView
                 android:id="@+id/contact_us"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:src="@drawable/care"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/contact_us"
                 android:layout_marginEnd="15dp"
-                android:layout_gravity="end"/>
+                android:layout_gravity="end"
+                android:contentDescription="@string/chat_now" />
 
 
         </androidx.appcompat.widget.Toolbar>
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/search_product"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:paddingStart="15dp"
-            android:layout_margin="10dp"
-            android:text="Search Products"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
+            android:text="@string/search_products"
             android:textColor="@color/quantum_grey600"
             android:textAlignment="textStart"
             android:drawableStart="@drawable/ic_baseline_search_24"
-            android:drawableTint="@color/black"
-            android:drawablePadding="15dp"
-            android:background="@drawable/searchbuttondesign"/>
+            app:drawableTint="@color/black"
+            android:drawablePadding="10dp"
+            android:background="@drawable/searchbuttondesign" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
     <include layout="@layout/content_home"/>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        android:backgroundTint="@color/quantum_grey300"
-        app:srcCompat="@drawable/nav_cart" />
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:menu="@menu/bottom_nav_menu"
+        app:itemBackground="@color/white"
+        app:itemIconTint="@color/botoom_nav_color"
+        app:itemTextColor="@color/botoom_nav_color"
+        android:theme= "@style/ShapeAppearance.MaterialComponents.LargeComponent"
+        android:layout_gravity="bottom"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

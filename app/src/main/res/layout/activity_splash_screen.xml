@@ -1,21 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".shopKeeperPanel.SplashScreenActivity">
+    tools:context=".welcomeScreens.SplashScreenActivity">
 
     <ImageView
         android:id="@+id/splash_logo"
         android:layout_width="match_parent"
-        android:layout_height="600dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/logo"
+        android:layout_height="400dp"
+        android:src="@drawable/logo_final"
+        android:layout_centerInParent="true"
+        android:contentDescription="@string/logo" />
+
+    <com.daasuu.cat.CountAnimationTextView
+        android:id="@+id/count_animation_textView"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@+id/splash_logo"
+        android:gravity="center"
+        android:text="0"
+        android:textColor="@color/red"
         />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Orders Served"
+        android:textColor="@color/blue"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/count_animation_textView"/>
+
+</RelativeLayout>

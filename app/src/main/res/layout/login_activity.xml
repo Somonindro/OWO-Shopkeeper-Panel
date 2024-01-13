@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="#fff"
+    android:focusableInTouchMode="true"
+    android:fitsSystemWindows="true"
+    android:weightSum="3"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:layout_weight="1">
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/logo_final"
+            android:contentDescription="@string/owo_logo" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:id="@+id/formHolder"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2">
+
+        <EditText
+            android:textSize="20sp"
+            android:textColorHint="#666"
+            android:id="@+id/shopkeeper_mobile"
+            android:padding="10dp"
+            android:maxLength="11"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/mobile_number"
+            android:drawableStart="@drawable/phone"
+            android:drawablePadding="10dp"
+            android:inputType="number"
+            android:autofillHints="@string/mobile_number" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
+            <EditText
+                android:textSize="20sp"
+                android:textColorHint="#666"
+                android:id="@+id/shopkeeper_pin"
+                android:padding="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/pin_number"
+                android:drawableStart="@drawable/ic_input_lock"
+                android:drawablePadding="10dp"
+                android:inputType="numberPassword"
+                android:autofillHints="@string/pin_number" />
+
+            <ImageView
+                android:id="@+id/show_pin"
+                android:paddingEnd="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_visibility_off"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:contentDescription="@string/see_pin" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp">
+
+            <CheckBox
+                android:id="@+id/remember_me"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/remember_me"
+                android:textSize="16sp"
+                android:textColor="@color/blue"
+                android:layout_marginStart="10dp"
+                android:textStyle="bold"
+                />
+
+            <TextView
+                android:id="@+id/forget_pin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/forget_pin"
+                android:textColor="@android:color/holo_red_light"
+                android:textSize="16sp"
+                android:layout_alignParentEnd="true"
+                android:textStyle="bold"
+                android:paddingTop="5dp"
+                android:layout_marginEnd="10dp"
+                />
+
+        </RelativeLayout>
+
+
+        <Button
+            android:textSize="20sp"
+            android:textColor="#fff"
+            android:id="@+id/login_btn"
+            android:padding="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/buttons_blue"
+            android:layout_marginTop="22dp"
+            android:text="@string/log_in"
+            android:textAllCaps="false"
+            android:elevation="0dp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:layout_toStartOf="@+id/sign_up"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/are_you_not_registered"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                />
+
+            <TextView
+                android:id="@+id/sign_up"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sign_up"
+                android:textColor="@android:color/holo_red_light"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_alignParentEnd="true"
+                />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:paddingTop="10dp"
+    android:paddingStart="5dp"
+    android:paddingEnd="5dp"
+    android:layout_margin="5dp"
+    android:background="@drawable/category_design"
+    android:gravity="top|center_vertical|center_horizontal|center"
+    android:layout_width="match_parent"
+    android:layout_height="150dp">
+
+
+    <ImageView
+        android:id="@+id/imageviewid"
+        android:layout_width="match_parent"
+        android:layout_height="68dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/product_dummy_image"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:id="@+id/textviewid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Hello Everyone I am Amimul Ehsan Rahi. How are you?Hope You all doing well"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:textAlignment="center"
+        android:layout_below="@+id/imageviewid"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/black"
+        android:gravity="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_centerHorizontal="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageviewid"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
